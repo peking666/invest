@@ -60,29 +60,27 @@ echo "Reff:  ";
 $reff = trim(fgets(STDIN));
 echo "Mau Brapa: ";
 $brp = trim(fgets(STDIN));
-for ($a= 0; $a<$brp; $a++){
-$ang = rand(000,999);
-$code = random(1);
-$name = array("Lina", "Buna", "ijul", "sambi ", "sumpi", "nulae", "usah", "bauna");
-$nam = array_rand($name);
-$nama = $name[$nam];
+for ($a=0; $a<$brp; $a++){
+$nam = file_get_contents("https://api.namefake.com/indonesian-indonesia/");
+$j = json_decode($nam, TRUE);
+$nama = $j['name'];
+$ang = rand(00,99);
 $fp = fopen("invest.txt", 'a');
-fputs($fp, "$nama$code$ang|akunweb123\n");
+fputs($fp, "$nama$ang|akunweb123\n");
 fclose($fp);
-$hasil = "$nama$code$ang";
+$hasil = "$nama$ang";
 $cok = getcok("http://investasirupiah.com/auth/register.php", $ua);
-$data = "nama=$nama$code$ang&username=$nama$code$ang&password=akunweb123&email=$nama$code$ang%40gmail.com&invite=$reff&login=";
+$data = "nama=$nama$ang&username=$nama$ang&password=akunweb123&email=$nama$ang%40gmail.com&invite=$reff&login=";
 $send = curl("http://investasirupiah.com/auth/register.php", $ua, $data);
 echo "[$a]\nBerhasil Daftar [$hasil]\n";
 sleep(2);
-$logdat = "username=$nama$code$ang&password=akunweb123&login=Login";
+$logdat = "username=$nama$ang&password=akunweb123&login=Login";
 $login = curl("http://investasirupiah.com/auth/login.php", $ua, $logdat);
 echo "Berhasil Login [$hasil]\n";
 sleep(2);
-$datinvest = "username=$nama$code$ang&plan=Master&jumlah=20000&bronze=";
+$datinvest = "username=$nama$ang&plan=Master&jumlah=20000&bronze=";
 $vest = curl("http://investasirupiah.com/user/investasi.php", $ua, $datinvest);
 echo "Berhasil Invest [$hasil]\n\n";
 sleep(2);
-
 }
 ?>
